@@ -49,15 +49,29 @@ int main()
     catch (exception e) {
         cout << e.what() << endl;
     }
+
+    try {
+        cout << "Trying test " << i << "!\n";
+        i++;
+        cout << character('A', 32) << endl;
+    }
+    catch (exception e) {
+        cout << e.what() << endl;
+    }
 }
 
 char character(char start, int offset) {
     if (!isalpha(start)) {
         throw invalid_argument("Must use a character for the starting character!");
     }
+
     char target = start + offset;
+    if (isupper(start) && islower(target) || islower(start) && isupper(target))
+        throw out_of_range("Cannot convert cases!");
+
     if (!isalpha(target))
         throw out_of_range("Offset must be within alphabet range!");
+
     return target;
 }
 
